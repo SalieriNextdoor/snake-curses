@@ -5,6 +5,7 @@
 
 char *reverse(char *str, uint length) {
   char *temp = strdup(str);
+  ifnullexit(temp);
   temp += length;
 
   while (*str != '\0') *str++ = *--temp;

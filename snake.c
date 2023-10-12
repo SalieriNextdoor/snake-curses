@@ -44,6 +44,7 @@ void update_for_dir(point *pos, enum direction dir) {
 void init_snakepart(snakepart **fp) {
   if (*fp != NULL) return init_snakepart(&(*fp)->next);
   *fp = (snakepart *)malloc(sizeof(snakepart));
+  ifnullexit(fp);
   (*fp)->dir = M_DISABLED;
   (*fp)->next = NULL;
 }

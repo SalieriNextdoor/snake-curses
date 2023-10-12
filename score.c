@@ -7,6 +7,7 @@
 void draw_spoint(scorepoint *spoint) {
   delwin(spoint->win);
   spoint->win = newwin(1, 1, spoint->pos.y, spoint->pos.x);
+  ifnullexit(spoint->win);
   wattron(spoint->win, A_REVERSE);
   mvwaddch(spoint->win, 0, 0, ' ');
   wattroff(spoint->win, A_REVERSE);

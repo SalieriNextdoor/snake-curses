@@ -4,6 +4,7 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "scommons.h"
 #include "snake.h"
 
 #define DELAYU 100000UL
@@ -20,7 +21,10 @@ void init_structs(void) {
   update_spoint(&spoint, &scoreboard, max_y, max_x);
   spoint.win = newwin(1, 1, spoint.pos.y, spoint.pos.x);
   scoreboard.val = 0;
-  scoreboard.stringval = strdup("0");
+  // 3 digits + null char
+  scoreboard.stringval = (char *)malloc(4 * sizeof(char));
+  ifnullexit(scoreboard.stringval);
+  *scoreboard.stringval = '0';
   scoreboard.stringlen = 1;
 }
 
@@ -31,9 +35,17 @@ void init_curses(WINDOW **gamewin) {
   curs_set(0);
 
   *gamewin = newwin(0, 0, 0, 0);
+  ifnullexit(*gamewin);
   wtimeout(*gamewin, 0);
   keypad(*gamewin, TRUE);
   getmaxyx(*gamewin, max_y, max_x);
+}
+
+void cleanup(WINDOW *gamewin) {
+  delwin(spoint.win);
+  free(scoreboard.stringval);
+  delwin(gamewin);
+  delete_snakeparts(head.next);
 }
 
 int main() {
@@ -71,8 +83,7 @@ int main() {
     if (!update_head_pos(&head, default_dir, max_y, max_x)) break;
   }
 
-  delwin(gamewin);
-  delete_snakeparts(head.next);
+  cleanup(gamewin);
   endwin();
   return 0;
 }

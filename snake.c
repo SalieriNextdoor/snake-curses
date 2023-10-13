@@ -102,7 +102,7 @@ bool update_head_pos(snakehead *head, enum direction dir, int max_y,
 
   // snake goes out of game window
   // since pos values are unsigned, we only need to check for upper limits
-  if (head->pos.x > max_x || head->pos.y > max_y) return false;
+  if (head->pos.x >= max_x || head->pos.y >= max_y) return false;
   update_tail_dir(head->next, invert_dir(dir));
   return true;
 }

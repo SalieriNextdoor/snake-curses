@@ -1,6 +1,7 @@
 #ifndef SCOMMONS_H
 #define SCOMMONS_H
 #include <curses.h>
+#include <stdlib.h>
 
 #define ifnullexit(_pntr) \
   if (_pntr == NULL) exit(1)

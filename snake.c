@@ -29,6 +29,7 @@ enum direction invert_dir(enum direction dir) {
       return M_DISABLED;
       break;
   }
+  return M_DISABLED;  // will never happen
 }
 
 /*

@@ -111,11 +111,11 @@ void init_game(WINDOW **gamewin) {
   getmaxyx(*gamewin, max_y, max_x);
 }
 
-void cleanup(WINDOW *gamewin) {
+void cleanup(WINDOW **gamewin) {
   wclear(spoint.win);
   delwin(spoint.win);
-  wclear(gamewin);
-  delwin(gamewin);
+  wclear(*gamewin);
+  delwin(*gamewin);
   delete_snakeparts(head.next);
 }
 
@@ -157,7 +157,7 @@ int main() {
     }
     if (!update_head_pos(&head, default_dir, max_y, max_x)) break;
   }
-  cleanup(gamewin);
+  cleanup(&gamewin);
 
   if (!force_exit && c != KEY_F(3)) load_end_menu();
 

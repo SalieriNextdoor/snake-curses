@@ -1,3 +1,6 @@
+/*
+ * Prints the menus logos and messages.
+ * */
 #include "menus.h"
 
 #include <curses.h>

@@ -1,3 +1,6 @@
+/*
+ *  Letter functions and helper macros for the printing of letters.
+ * */
 #ifndef SLETTERS_H
 #define SLETTERS_H
 #include <curses.h>
@@ -11,10 +14,6 @@
 #define print_highlight_vertical(_prwin, _prstarty, _prstartx, _prcnt) \
   for (int i = 0; i < _prcnt; i++)                                     \
   mvwaddch(_prwin, _prstarty + i, _prstartx, ' ')
-
-#define TYPEWIDTH 8
-#define TYPEHEIGHT 8
-#define TYPEGAP 2
 
 void print_s(WINDOW *win, int height, int width, point start);
 void print_n(WINDOW *win, int height, int width, point start);

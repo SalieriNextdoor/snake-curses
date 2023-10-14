@@ -1,3 +1,6 @@
+/*
+ * Functions and structs related to snake head and tail handling.
+ * */
 #ifndef SNAKE_H
 #define SNAKE_H
 
@@ -6,18 +9,15 @@
 #include "scommons.h"
 
 enum direction { M_DISABLED, M_UP, M_DOWN, M_LEFT, M_RIGHT };
-typedef struct _snakepart {
+typedef struct _snakepart {  // tail parts
   enum direction dir;
-  struct _snakepart *next;
+  struct _snakepart *next;  // tail is a linked list
 } snakepart;
 typedef struct _snakehead {
-  point pos;
+  point pos;  // position of the head
   enum direction headdir;
   struct _snakepart *next;
 } snakehead;
-
-enum direction invert_dir(enum direction dir);
-void update_for_dir(point *pos, enum direction dir);
 
 #include "score.h"
 

@@ -1,3 +1,7 @@
+/*
+ * Functions related to printing letters used for the menu logos.
+ * Typefont based on the Commodore 64 typefont.
+ * */
 #include "letters.h"
 
 void print_s(WINDOW *win, int height, int width, point start) {

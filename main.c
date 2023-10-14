@@ -1,3 +1,6 @@
+/*
+ * Initializes curses, menus, structs and runs the game itself.
+ * */
 #include <curses.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,8 +26,8 @@ void init_structs(void) {
   update_spoint(&spoint, &scoreboard, max_y, max_x);
   spoint.win = newwin(1, 1, spoint.pos.y, spoint.pos.x);
   scoreboard.val = 0;
-  // 3 digits + null char
-  scoreboard.stringval = (char *)malloc(4 * sizeof(char));
+  // 4 digits + null char
+  scoreboard.stringval = (char *)malloc(5 * sizeof(char));
   ifnullexit(scoreboard.stringval);
   *scoreboard.stringval = '0';
   *(scoreboard.stringval + 1) = '\0';

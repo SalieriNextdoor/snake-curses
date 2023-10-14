@@ -1,3 +1,6 @@
+/*
+ *  Contains helper functions and structs.
+ * */
 #ifndef SCOMMONS_H
 #define SCOMMONS_H
 #include <curses.h>

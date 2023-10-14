@@ -1,7 +1,16 @@
+/*
+ *  Functions related to updating the position and direction of
+ *  snake head and tail, and the drawing of them.
+ * */
 #include "snake.h"
 
 #include <stdlib.h>
 
+/*
+ *  Helper function for internal use.
+ *  Given a direction, returns its opposite.
+ *  If given M_DISABLED, returns M_DISABLED.
+ * */
 enum direction invert_dir(enum direction dir) {
   switch (dir) {
     case M_UP:
@@ -17,11 +26,16 @@ enum direction invert_dir(enum direction dir) {
       return M_RIGHT;
       break;
     case M_DISABLED:
+      return M_DISABLED;
       break;
   }
-  return M_DISABLED;
 }
 
+/*
+ *  Helper function for internal use.
+ *  Given a direction, updates a position struct according to it.
+ *  If given M_DISABLED, does nothing.
+ * */
 void update_for_dir(point *pos, enum direction dir) {
   switch (dir) {
     case M_UP:
@@ -41,6 +55,10 @@ void update_for_dir(point *pos, enum direction dir) {
   }
 }
 
+/*
+ * Initializes the next tail piece.
+ * Given a snakepart struct, adds a new snakepart to the end of the list.
+ * */
 void init_snakepart(snakepart **fp) {
   if (*fp != NULL) return init_snakepart(&(*fp)->next);
   *fp = (snakepart *)malloc(sizeof(snakepart));
@@ -49,6 +67,10 @@ void init_snakepart(snakepart **fp) {
   (*fp)->next = NULL;
 }
 
+/*
+ *  Cleanup function.
+ *  Given a snakepart, deletes all snakeparts ahead of it, including it.
+ * */
 void delete_snakeparts(snakepart *fp) {
   if (fp == NULL) return;
   snakepart *next = fp->next;
@@ -56,6 +78,11 @@ void delete_snakeparts(snakepart *fp) {
   delete_snakeparts(next);
 }
 
+/*
+ *  Draws the snake tail according to updated position.
+ *  Returns false if it is detected that a piece of tail
+ *  touched the head, otherwise returns true.
+ * */
 bool draw_tail(WINDOW *win, snakepart *p, point pos, snakehead *head) {
   if (p == NULL) return true;
 
@@ -72,6 +99,12 @@ bool draw_tail(WINDOW *win, snakepart *p, point pos, snakehead *head) {
   return draw_tail(win, p->next, pos, head);
 }
 
+/*
+ *  Draws the snake head and tail in its position.
+ *  If the head coincides with a score point, calls score
+ *  update functions.
+ *  Returns the result of draw_tail.
+ * */
 bool draw_head(WINDOW *win, snakehead *head, scorepoint *spoint,
                score *scoreboard, int max_y, int max_x) {
   wclear(win);
@@ -87,6 +120,10 @@ bool draw_head(WINDOW *win, snakehead *head, scorepoint *spoint,
   return draw_tail(win, head->next, head->pos, head);
 }
 
+/*
+ *  Updates the direction of a tail piece according to
+ *  previous direction given.
+ * */
 void update_tail_dir(snakepart *p, enum direction prevdir) {
   if (p == NULL) return;
 
@@ -96,6 +133,11 @@ void update_tail_dir(snakepart *p, enum direction prevdir) {
   update_tail_dir(p->next, old);
 }
 
+/*
+ *  Updates the head and tail position according to head direction.
+ *  Returns false if head is to go beyond border.
+ *  Otherwise returns true.
+ * */
 bool update_head_pos(snakehead *head, enum direction dir, int max_y,
                      int max_x) {
   update_for_dir(&head->pos, dir);

@@ -1,15 +1,18 @@
+/*
+ * Score structs and functions
+ * */
 #ifndef SSCORE_H
 #define SSCORE_H
 
 #include "scommons.h"
 typedef struct _scorepoint {
-  point pos;
-  WINDOW *win;
+  point pos;    // point position in the map
+  WINDOW *win;  // a 1x1 window representing the score point
 } scorepoint;
 typedef struct _score {
-  uint val;
-  char *stringval;
-  uint stringlen;
+  uint val;         // the current score value
+  char *stringval;  // the score value in string
+  uint stringlen;   // the length of the string
 } score;
 
 #include "snake.h"
